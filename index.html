@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBD Didi 🤡</title>
+    <style>
+        /* --- RESET & FONTS --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; /* Still using this because it's annoying */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite; /* Cool moving background */
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        /* --- LOADING SCREEN (To waste her time) --- */
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            color: #0f0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .loader-text { font-size: 1.5rem; margin-bottom: 20px; }
+        .progress-bar { width: 80%; height: 20px; background: #333; border: 2px solid #0f0; border-radius: 10px; overflow: hidden; }
+        .progress-fill { width: 0%; height: 100%; background: #0f0; transition: width 0.5s; }
+
+        /* --- HEADER --- */
+        .header {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff0066;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: bounce 1s infinite;
+        }
+
+        /* --- CARD LAYOUT (Fixing the "Compact" issue) --- */
+        .container {
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px; /* Big space between items */
+        }
+
+        .card {
+            background: white;
+            padding: 15px 15px 30px 15px;
+            border-radius: 10px;
+            box-shadow: 10px 10px 0px rgba(0,0,0,1); /* Retro harsh shadow */
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .card:nth-child(even) { transform: rotate(2deg); }
+        .card:hover { transform: scale(1.02) rotate(0deg); z-index: 10; }
+
+        .card img {
+            width: 100%;
+            border-radius: 5px;
+            border: 2px solid #333;
+            margin-bottom: 15px;
+        }
+
+        .caption {
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: yellow;
+            display: inline-block;
+            padding: 5px 10px;
+            transform: rotate(-1deg);
+        }
+
+        /* --- THE ANNOYING BUTTON AREA --- */
+        .gift-area {
+            margin-top: 50px;
+            height: 300px; /* huge space specifically for the running button */
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 4px dashed white;
+        }
+
+        .gift-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            border: 3px solid black;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            box-shadow: 5px 5px 0 #000;
+        }
+
+        #runaway-btn { background-color: #00ffcc; transition: all 0.1s; position: absolute; }
+        #real-btn { background-color: #ffcc00; display: none; margin-top: 20px; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- FAKE LOADING SCREEN -->
+    <div id="loader">
+        <div class="loader-text">Loading Sister's Embarrassment...</div>
+        <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+        <p id="loading-msg" style="margin-top: 10px; font-size: 0.8rem;">Calculating old age...</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="content" style="display:none;">
+        
+        <div class="header">
+            <marquee style="font-size: 1.2rem; font-weight: bold;">🚨 BREAKING NEWS: LOCAL GIRL TURNS 22, STILL ACTS LIKE SHE IS 12. 🚨</marquee>
+            <h1>Happy Bday Didi!</h1>
+            <p>Scroll down for your surprise 👇</p>
+        </div>
+
+        <div class="container">
+            
+            <!-- CARD 1 -->
+            <div class="card">
+                <img src="didi.jpeg" alt="Didi">
+                <div class="caption">Exhibit A: The "Face"</div>
+                <p>Why do you make this face? 🤡</p>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="card">
+                <img src="didi_childhoodphoto.jpeg" alt="Childhood">
+                <div class="caption">Exhibit B: Fashion Icon?</div>
+                <p>Mom really dressed you like a potato.</p>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="card">
+                <img src="didi_mybirthday.jpeg" alt="My Bday">
+                <div class="caption">Exhibit C: The Villain</div>
+                <p>This was MY cake. Never forget.</p>
+            </div>
+
+            <!-- BUTTON PRANK -->
+            <div class="gift-area">
+                <h2 class="gift-title">Tap to collect ₹5000</h2>
+                <!-- This button is empty so the layout stays big, the real button floats -->
+                <div style="height: 60px;"></div> 
+                
+                <button id="runaway-btn">CLAIM MONEY</button>
+                <button id="real-btn" onclick="finalMessage()">Okay fine, click me.</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- LOADING SCREEN LOGIC ---
+        const fill = document.getElementById('fill');
+        const loader = document.getElementById('loader');
+        const content = document.getElementById('content');
+        const msgs = ["Calculating wrinkles...", "Finding embarrassing photos...", "Deleting your coolness...", "Done!"];
+        let width = 0;
+        
+        // Fake loading interval
+        let loadInterval = setInterval(() => {
+            width += Math.random() * 5;
+            if(width > 100) width = 100;
+            fill.style.width = width + "%";
+
+            // Change text randomly
+            if(width < 90 && Math.random() > 0.7) {
+                document.getElementById('loading-msg').innerText = msgs[Math.floor(Math.random() * 3)];
+            }
+
+            if (width === 100) {
+                clearInterval(loadInterval);
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    content.style.display = 'block';
+                    alert("WARNING: High levels of Cringe detected ahead.");
+                }, 500);
+            }
+        }, 100);
+
+
+        // --- BUTTON RUNAWAY LOGIC ---
+        const annoyBtn = document.getElementById('runaway-btn');
+        const realBtn = document.getElementById('real-btn');
+        const giftArea = document.querySelector('.gift-area');
+        let attempts = 0;
+
+        function moveBtn(e) {
+            e.preventDefault(); // Stop click
+            
+            // Get dimensions of the gift area (so button stays inside the box mostly)
+            const areaRect = giftArea.getBoundingClientRect();
+            
+            // Calculate random X/Y within the gift area
+            const maxLeft = areaRect.width - 150; 
+            const maxTop = areaRect.height - 60; 
+
+            const newLeft = Math.random() * maxLeft;
+            const newTop = Math.random() * maxTop;
+
+            annoyBtn.style.left = newLeft + "px";
+            annoyBtn.style.top = newTop + "px";
+
+            attempts++;
+            if(attempts > 5) {
+                realBtn.style.display = "inline-block";
+                document.querySelector('.gift-title').innerText = "You are too slow. Give up.";
+                annoyBtn.style.display = "none";
+            }
+        }
+
+        annoyBtn.addEventListener('mouseover', moveBtn);
+        annoyBtn.addEventListener('touchstart', moveBtn);
+        annoyBtn.addEventListener('click', moveBtn);
+
+        function finalMessage() {
+            alert("Happy 22nd Birthday! No money for you, but you have me, which is better. 😎");
+            // Confetti effect (simple version)
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.innerText = '🤡';
+                el.style.position = 'fixed';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = '-50px';
+                el.style.fontSize = '30px';
+                el.style.transition = 'top 3s ease-in';
+                document.body.appendChild(el);
+                setTimeout(() => { el.style.top = '110vh'; }, 100);
+                setTimeout(() => { el.remove(); }, 3000);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
