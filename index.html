@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HBD Didi 🤡</title>
     <style>
         /* --- RESET & FONTS --- */
@@ -13,17 +13,17 @@
         }
 
         body {
-            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; /* Still using this because it's annoying */
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite; /* Cool moving background */
+            animation: gradientBG 15s ease infinite;
             min-height: 100vh;
             color: #333;
             overflow-x: hidden;
             padding-bottom: 80px;
         }
 
-        /* --- LOADING SCREEN (To waste her time) --- */
+        /* --- SLOW LOADING SCREEN --- */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -37,72 +37,92 @@
             text-align: center;
             padding: 20px;
         }
-        .loader-text { font-size: 1.5rem; margin-bottom: 20px; }
-        .progress-bar { width: 80%; height: 20px; background: #333; border: 2px solid #0f0; border-radius: 10px; overflow: hidden; }
-        .progress-fill { width: 0%; height: 100%; background: #0f0; transition: width 0.5s; }
+        .loader-text { font-size: 1.2rem; margin-bottom: 20px; font-weight: bold; }
+        .progress-bar { width: 80%; height: 25px; background: #333; border: 2px solid #0f0; border-radius: 10px; overflow: hidden; }
+        .progress-fill { width: 0%; height: 100%; background: #0f0; transition: width 0.2s linear; }
+        
+        #loading-msg {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: white;
+            min-height: 30px; 
+        }
 
         /* --- HEADER --- */
         .header {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 10px;
             text-align: center;
             border-bottom: 5px solid #000;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            width: 100%;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 2.2rem;
             color: #ff0066;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            line-height: 1.2;
             animation: bounce 1s infinite;
         }
 
-        /* --- CARD LAYOUT (Fixing the "Compact" issue) --- */
+        .news-ticker {
+            background: yellow;
+            padding: 5px;
+            border: 2px solid black;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            white-space: nowrap;
+        }
+
+        /* --- CARD LAYOUT --- */
         .container {
             width: 90%;
             max-width: 500px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 40px; /* Big space between items */
+            gap: 40px; 
         }
 
         .card {
             background: white;
-            padding: 15px 15px 30px 15px;
+            padding: 10px 10px 25px 10px;
             border-radius: 10px;
-            box-shadow: 10px 10px 0px rgba(0,0,0,1); /* Retro harsh shadow */
+            box-shadow: 8px 8px 0px rgba(0,0,0,1);
             transform: rotate(-2deg);
-            transition: transform 0.3s;
             text-align: center;
         }
 
         .card:nth-child(even) { transform: rotate(2deg); }
-        .card:hover { transform: scale(1.02) rotate(0deg); z-index: 10; }
 
         .card img {
             width: 100%;
+            height: auto;
             border-radius: 5px;
             border: 2px solid #333;
             margin-bottom: 15px;
         }
 
         .caption {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: bold;
             background: yellow;
             display: inline-block;
             padding: 5px 10px;
             transform: rotate(-1deg);
+            margin-bottom: 10px;
         }
 
-        /* --- THE ANNOYING BUTTON AREA --- */
+        /* --- GIFT AREA --- */
         .gift-area {
-            margin-top: 50px;
-            height: 300px; /* huge space specifically for the running button */
-            background: rgba(255,255,255,0.5);
+            margin-top: 30px;
+            height: 350px; 
+            background: rgba(255,255,255,0.6);
             border-radius: 20px;
             display: flex;
             flex-direction: column;
@@ -110,30 +130,36 @@
             justify-content: center;
             position: relative;
             border: 4px dashed white;
+            overflow: hidden; 
         }
 
         .gift-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             margin-bottom: 20px;
-            color: white;
-            text-shadow: 2px 2px 0 #000;
+            color: #000;
+            text-align: center;
+            font-weight: bold;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
         }
 
         button {
-            padding: 15px 40px;
-            font-size: 1.5rem;
+            padding: 12px 25px;
+            font-size: 1.1rem;
             border: 3px solid black;
             border-radius: 50px;
             cursor: pointer;
             font-family: inherit;
             font-weight: bold;
-            box-shadow: 5px 5px 0 #000;
+            box-shadow: 4px 4px 0 #000;
+            z-index: 100;
         }
 
-        #runaway-btn { background-color: #00ffcc; transition: all 0.1s; position: absolute; }
-        #real-btn { background-color: #ffcc00; display: none; margin-top: 20px; }
+        #runaway-btn { background-color: #00ffcc; position: absolute; top: 50%; }
+        /* The real button is styled to look "Correct" */
+        #real-btn { background-color: #ffcc00; display: none; margin-top: 20px; position: relative; z-index: 101; color: red; }
 
-        /* --- ANIMATIONS --- */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -141,27 +167,29 @@
         }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-5px); }
         }
 
     </style>
 </head>
 <body>
 
-    <!-- FAKE LOADING SCREEN -->
+    <!-- LOADING SCREEN -->
     <div id="loader">
-        <div class="loader-text">Loading Sister's Embarrassment...</div>
+        <div class="loader-text">Loading System...</div>
         <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
-        <p id="loading-msg" style="margin-top: 10px; font-size: 0.8rem;">Calculating old age...</p>
+        <p id="loading-msg">Initializing...</p>
     </div>
 
     <!-- MAIN CONTENT -->
     <div id="content" style="display:none;">
         
         <div class="header">
-            <marquee style="font-size: 1.2rem; font-weight: bold;">🚨 BREAKING NEWS: LOCAL GIRL TURNS 22, STILL ACTS LIKE SHE IS 12. 🚨</marquee>
-            <h1>Happy Bday Didi!</h1>
-            <p>Scroll down for your surprise 👇</p>
+            <div class="news-ticker">
+                <marquee scrollamount="8">🚨 BREAKING NEWS: LOCAL GIRL TURNS 22. OLD AGE CONFIRMED. 🚨</marquee>
+            </div>
+            <h1>Happy 22nd<br>Birthday Didi!</h1>
+            <p style="margin-top:10px;">(Please don't kill me for the photos below)</p>
         </div>
 
         <div class="container">
@@ -169,54 +197,60 @@
             <!-- CARD 1 -->
             <div class="card">
                 <img src="didi.jpeg" alt="Didi">
-                <div class="caption">Exhibit A: The "Face"</div>
-                <p>Why do you make this face? 🤡</p>
+                <div class="caption">The "Current Mood"</div>
+                <p>Is this the face of a 22 year old? Yes.</p>
             </div>
 
             <!-- CARD 2 -->
             <div class="card">
                 <img src="didi_childhoodphoto.jpeg" alt="Childhood">
-                <div class="caption">Exhibit B: Fashion Icon?</div>
-                <p>Mom really dressed you like a potato.</p>
+                <div class="caption">The "Fashion Disaster"</div>
+                <p>Mom said you were cute. Mom lied.</p>
             </div>
 
             <!-- CARD 3 -->
             <div class="card">
                 <img src="didi_mybirthday.jpeg" alt="My Bday">
-                <div class="caption">Exhibit C: The Villain</div>
+                <div class="caption">The "Villain Origin"</div>
                 <p>This was MY cake. Never forget.</p>
             </div>
 
             <!-- BUTTON PRANK -->
             <div class="gift-area">
-                <h2 class="gift-title">Tap to collect ₹5000</h2>
-                <!-- This button is empty so the layout stays big, the real button floats -->
-                <div style="height: 60px;"></div> 
+                <h2 class="gift-title">Tap to collect ₹5,000</h2>
                 
                 <button id="runaway-btn">CLAIM MONEY</button>
-                <button id="real-btn" onclick="finalMessage()">Okay fine, click me.</button>
+                <button id="real-btn" onclick="finalMessage()">Admit I'm the favorite child</button>
             </div>
 
         </div>
     </div>
 
     <script>
-        // --- LOADING SCREEN LOGIC ---
+        // --- LOADING LOGIC ---
         const fill = document.getElementById('fill');
         const loader = document.getElementById('loader');
         const content = document.getElementById('content');
-        const msgs = ["Calculating wrinkles...", "Finding embarrassing photos...", "Deleting your coolness...", "Done!"];
+        const msgText = document.getElementById('loading-msg');
+        
         let width = 0;
         
-        // Fake loading interval
+        // Interval runs every 80ms
         let loadInterval = setInterval(() => {
-            width += Math.random() * 5;
+            width += 1.5; 
+            
             if(width > 100) width = 100;
             fill.style.width = width + "%";
 
-            // Change text randomly
-            if(width < 90 && Math.random() > 0.7) {
-                document.getElementById('loading-msg').innerText = msgs[Math.floor(Math.random() * 3)];
+            // LOGIC TO CHANGE TEXT
+            if (width > 0 && width < 30) {
+                msgText.innerText = "Scanning for embarrassing photos...";
+            } else if (width >= 30 && width < 60) {
+                msgText.innerText = "Calculating total wrinkles...";
+            } else if (width >= 60 && width < 90) {
+                msgText.innerText = "Deleting your coolness...";
+            } else if (width >= 90) {
+                msgText.innerText = "Upload Complete!";
             }
 
             if (width === 100) {
@@ -224,10 +258,9 @@
                 setTimeout(() => {
                     loader.style.display = 'none';
                     content.style.display = 'block';
-                    alert("WARNING: High levels of Cringe detected ahead.");
-                }, 500);
+                }, 800); 
             }
-        }, 100);
+        }, 80); 
 
 
         // --- BUTTON RUNAWAY LOGIC ---
@@ -237,25 +270,24 @@
         let attempts = 0;
 
         function moveBtn(e) {
-            e.preventDefault(); // Stop click
+            e.preventDefault(); 
             
-            // Get dimensions of the gift area (so button stays inside the box mostly)
             const areaRect = giftArea.getBoundingClientRect();
             
-            // Calculate random X/Y within the gift area
-            const maxLeft = areaRect.width - 150; 
+            // Stay inside box logic
+            const maxLeft = areaRect.width - 120; 
             const maxTop = areaRect.height - 60; 
 
             const newLeft = Math.random() * maxLeft;
             const newTop = Math.random() * maxTop;
 
-            annoyBtn.style.left = newLeft + "px";
-            annoyBtn.style.top = newTop + "px";
+            annoyBtn.style.left = Math.max(0, newLeft) + "px";
+            annoyBtn.style.top = Math.max(0, newTop) + "px";
 
             attempts++;
-            if(attempts > 5) {
+            if(attempts > 4) {
                 realBtn.style.display = "inline-block";
-                document.querySelector('.gift-title').innerText = "You are too slow. Give up.";
+                document.querySelector('.gift-title').innerText = "Okay, give up. Just click this:";
                 annoyBtn.style.display = "none";
             }
         }
@@ -265,20 +297,25 @@
         annoyBtn.addEventListener('click', moveBtn);
 
         function finalMessage() {
-            alert("Happy 22nd Birthday! No money for you, but you have me, which is better. 😎");
-            // Confetti effect (simple version)
-            setInterval(() => {
-                const el = document.createElement('div');
-                el.innerText = '🤡';
-                el.style.position = 'fixed';
-                el.style.left = Math.random() * 100 + 'vw';
-                el.style.top = '-50px';
-                el.style.fontSize = '30px';
-                el.style.transition = 'top 3s ease-in';
-                document.body.appendChild(el);
-                setTimeout(() => { el.style.top = '110vh'; }, 100);
-                setTimeout(() => { el.remove(); }, 3000);
-            }, 200);
+            // The final joke alert
+            alert("I KNEW IT! \n\nThanks for admitting I'm the favorite child. \n\nHappy Birthday Didi! 🤡❤️");
+            
+            // Confetti loop
+            for(let i=0; i<30; i++) {
+                setTimeout(() => {
+                    const el = document.createElement('div');
+                    el.innerText = Math.random() > 0.5 ? '🤡' : '🎂';
+                    el.style.position = 'fixed';
+                    el.style.left = Math.random() * 100 + 'vw';
+                    el.style.top = '-50px';
+                    el.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    el.style.transition = 'top 3s ease-in';
+                    el.style.zIndex = "9999";
+                    document.body.appendChild(el);
+                    setTimeout(() => { el.style.top = '110vh'; }, 50);
+                    setTimeout(() => { el.remove(); }, 3500);
+                }, i * 100);
+            }
         }
     </script>
 </body>
